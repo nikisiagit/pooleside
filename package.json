@@ -1,0 +1,11 @@
+{
+  "name": "pooleside",
+  "version": "1.0.0",
+  "description": "Coastal vibes only music player",
+  "scripts": {
+    "build": "echo 'No build step required for static site'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
