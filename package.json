@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Coastal vibes only music player",
   "scripts": {
-    "build": "echo 'No build step required for static site'"
+    "build": "mkdir -p dist && cp index.html styles.css script.js dist/ && cp -r assets dist/"
   },
   "keywords": [],
   "author": "",
