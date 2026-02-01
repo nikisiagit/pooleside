@@ -167,11 +167,11 @@ body {
 /* Clean Hero Styles */
 .hero {
     height: 40vh;
-    /* Reduced height */
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding-top: var(--header-height);
+    padding-left: 10%;
 }
 
 .hero-content {
@@ -197,13 +197,11 @@ body {
     font-family: 'Instrument Sans', sans-serif;
     font-size: 1.5rem;
     color: var(--color-text);
-    text-align: center;
+    text-align: left;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0;
     white-space: pre-wrap;
-    /* Better handling of newlines and spacing */
     min-height: 100px;
-    /* Prevent layout shift */
 }
 
 .cursor {

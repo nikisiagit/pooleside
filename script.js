@@ -3,11 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!textElement) return;
 
-    // Use textContent compatible newline characters
     const text = "Hello visitor,\n\nwelcome to an oasis, a place where worries are not a thing and only vibes are...";
 
     let index = 0;
-    const speed = 40; // slightly faster
+    const speed = 80; // Slower typing speed (was 40)
 
     function type() {
         if (index < text.length) {
@@ -17,6 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Start with a slight delay to ensure layout is ready
-    setTimeout(type, 500);
+    // Wait 1 second after cursor loads before starting to type
+    setTimeout(type, 1000);
 });
