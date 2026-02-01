@@ -166,12 +166,11 @@ body {
 
 /* Clean Hero Styles */
 .hero {
-    height: 40vh;
+    height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding-top: var(--header-height);
-    padding-left: 10%;
+    justify-content: center;
+    padding: 0 20px;
 }
 
 .hero-content {
