@@ -40,7 +40,7 @@ html {
 }
 
 body {
-    font-family: 'Instrument Sans', sans-serif;
+    font-family: 'Instrument Serif', serif;
     background-color: var(--color-bg);
     color: var(--color-text);
     line-height: 1.6;
@@ -194,7 +194,7 @@ body {
 }
 
 .hero-description {
-    font-family: 'Instrument Sans', sans-serif;
+    font-family: 'Instrument Serif', serif;
     font-size: 1.5rem;
     color: var(--color-text);
     text-align: left;
