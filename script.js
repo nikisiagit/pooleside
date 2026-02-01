@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = "Hello visitor,\n\nwelcome to an oasis, a place where\nworries are not a thing and only\nvibes are...";
 
     let index = 0;
-    const speed = 120; // Slower typing speed (was 80)
+    const speed = 150; // Slower typing speed (was 120)
 
     function type() {
         if (index < text.length) {
