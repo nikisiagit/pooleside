@@ -200,14 +200,18 @@ body {
     text-align: center;
     max-width: 600px;
     margin: 0 auto;
-    white-space: pre-line;
-    /* Handle newlines in text */
+    white-space: pre-wrap;
+    /* Better handling of newlines and spacing */
+    min-height: 100px;
+    /* Prevent layout shift */
 }
 
 .cursor {
     display: inline-block;
     font-weight: 100;
     margin-left: 2px;
+    vertical-align: bottom;
+    /* Better alignment */
     animation: blink 1s step-end infinite;
 }
 

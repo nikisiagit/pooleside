@@ -1,18 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
     const textElement = document.getElementById('typewriterText');
-    const fullText = "Hello visitor,\n\nwelcome to an oasis, a place where worries are not a thing and only vibes are...";
-    const typingSpeed = 50; // ms per character
 
-    let charIndex = 0;
+    if (!textElement) return;
 
-    function typeWriter() {
-        if (charIndex < fullText.length) {
-            textElement.textContent += fullText.charAt(charIndex);
-            charIndex++;
-            setTimeout(typeWriter, typingSpeed);
+    // Use textContent compatible newline characters
+    const text = "Hello visitor,\n\nwelcome to an oasis, a place where worries are not a thing and only vibes are...";
+
+    let index = 0;
+    const speed = 40; // slightly faster
+
+    function type() {
+        if (index < text.length) {
+            textElement.textContent += text.charAt(index);
+            index++;
+            setTimeout(type, speed);
         }
     }
 
-    // Start typing after a short delay
-    setTimeout(typeWriter, 500);
+    // Start with a slight delay to ensure layout is ready
+    setTimeout(type, 500);
 });
