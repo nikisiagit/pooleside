@@ -906,4 +906,112 @@ section {
     .mobile-menu-btn.active span {
         background-color: var(--color-white);
     }
+}/* Intro Sequence Styles */
+.intro-sequence {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 50;
+    /* Below header (100) but above background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 40px;
+    /* Adjust based on container preference */
+    pointer-events: none;
+    /* Let clicks pass through if needed, but text needs to be selectable? Maybe auto. */
 }
+
+/* Ensure text is visible initially */
+.intro-text-container {
+    max-width: 600px;
+    /* Similar to image reference */
+    margin-left: 10%;
+    /* Positioning like the reference image */
+    margin-top: -100px;
+    /* Push up slightly to leave room for bottom logo */
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    pointer-events: auto;
+}
+
+.intro-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 24px;
+    color: var(--color-text);
+}
+
+.intro-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    color: var(--color-text);
+    margin-bottom: 60px;
+}
+
+.scroll-instruction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 40px;
+}
+
+.scroll-line-intro {
+    width: 1px;
+    height: 60px;
+    background: var(--color-text);
+    opacity: 0.6;
+}
+
+.scroll-instruction span {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+/* Floating Logo Container */
+.floating-logo-container {
+    position: fixed;
+    bottom: 0;
+    /* Starts at bottom */
+    left: 50%;
+    transform: translate(-50%, 40%);
+    /* 40% down to simulate "crop" or just entering */
+    width: 300px;
+    /* Size of the big logo */
+    z-index: 102;
+    /* Above everything initially */
+    pointer-events: none;
+    transition: transform 0.1s linear;
+    /* Smooth linear movement for scroll sync */
+    will-change: transform, width, top, left, bottom;
+}
+
+.main-animated-logo {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
+}
+
+/* Content Spacer - creates the scrollable area */
+.content-spacer {
+    height: 250vh;
+    /* Adjust this to control how long the animation lasts */
+    pointer-events: none;
+}
+
+/* Base header adjustments */
+.header {
+    background: transparent !important;
+    /* Start transparent */
+    box-shadow: none !important;
+}
+
+/* We will reuse the .logo class in header for the final state, 
+   but ensuring it starts hidden is already done in previous step. */
