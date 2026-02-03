@@ -914,4 +914,32 @@ section {
     .mobile-menu-btn.active span {
         background-color: var(--color-white);
     }
+}/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    /* Hidden initially */
+    transition: opacity 1.5s ease-in;
+}
+
+.scroll-indicator span {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1rem;
+    color: var(--color-text);
+    text-transform: lowercase;
+    letter-spacing: 1px;
+}
+
+.scroll-indicator .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: var(--color-text);
+    opacity: 0.6;
 }
