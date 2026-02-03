@@ -946,12 +946,8 @@ section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    /* Left align text and line */
     gap: 12px;
-    margin-left: 20px;
-    /* Indent slightly under logo */
     opacity: 0;
-    /* Hidden initially */
     transition: opacity 1.5s ease-in;
 }
 
