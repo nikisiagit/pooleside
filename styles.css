@@ -227,7 +227,13 @@ body {
 
 .hero-content {
     width: 600px;
+    max-width: 100%;
+    /* Responsive */
     animation: fadeInUp 1s var(--ease-out);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Align children to left */
 }
 
 .hero-logo-container {
@@ -918,32 +924,35 @@ section {
 
 /* Scroll Indicator Container */
 .scroll-indicator {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    /* Left align */
     gap: 20px;
-    opacity: 0;
-    /* Hidden initially */
-    transition: opacity 1.5s ease-in;
+    margin-top: 40px;
+    /* Space from text */
     width: 100%;
-    pointer-events: none;
 }
 
 .bottom-logo {
-    width: 200px;
+    width: 180px;
     height: auto;
-    margin-bottom: 0px;
+    opacity: 0;
+    /* Hidden initially */
+    transition: opacity 1.5s ease-in;
 }
 
 .scroll-instruction-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    /* Left align text and line */
     gap: 12px;
+    margin-left: 20px;
+    /* Indent slightly under logo */
+    opacity: 0;
+    /* Hidden initially */
+    transition: opacity 1.5s ease-in;
     animation: bounce 2s infinite;
 }
 
@@ -960,6 +969,33 @@ section {
     height: 40px;
     background: var(--color-text);
     opacity: 0.6;
+    margin-left: 5px;
+    /* Center line relative to text */
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .hero {
+        padding-left: 20px;
+        /* Less padding on mobile */
+        justify-content: center;
+        /* Center on mobile? Or keep left? User complained about missing. Let's keep left but safer. */
+        align-items: center;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero-description {
+        font-size: 1.2rem;
+        /* Smaller text */
+    }
+
+    .bottom-logo {
+        width: 140px;
+        /* Smaller logo */
+    }
 }
 
 @keyframes bounce {

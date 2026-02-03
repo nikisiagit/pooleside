@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const textElement = document.getElementById('typewriterText');
-    const scrollIndicator = document.getElementById('scrollIndicator');
+    const bottomLogo = document.getElementById('bottomLogo');
+    const scrollInstruction = document.getElementById('scrollInstruction');
 
     if (!textElement) return;
 
@@ -29,10 +30,17 @@ document.addEventListener('DOMContentLoaded', () => {
             index2++;
             setTimeout(typePart2, speed);
         } else {
-            // All done, show scroll indicator
-            if (scrollIndicator) {
-                scrollIndicator.style.opacity = '1';
-            }
+            // All text done.
+            // 1. Show Logo after 1s
+            setTimeout(() => {
+                if (bottomLogo) bottomLogo.style.opacity = '1';
+
+                // 2. Show Scroll Text after Logo has faded in (e.g. +1.5s)
+                setTimeout(() => {
+                    if (scrollInstruction) scrollInstruction.style.opacity = '1';
+                }, 1500);
+
+            }, 1000);
         }
     }
 
