@@ -159,9 +159,13 @@ body {
 }
 
 .logo-text {
-    font-family: 'Pacifico', cursive;
-    font-size: 2rem;
-    color: var(--color-text);
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo {
+    height: 40px;
+    width: auto;
 }
 
 .nav {
