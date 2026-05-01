@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "Coastal vibes only music player",
   "scripts": {
-    "build": "mkdir -p dist && cp index.html styles.css script.js dist/ && cp -r assets dist/"
+    "build": "node fetch-icloud.js && mkdir -p dist && cp index.html styles.css script.js photos.json dist/ && cp -r assets dist/"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "icloud-shared-album": "^1.2.1"
+  }
 }
