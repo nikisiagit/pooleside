@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const textElement = document.getElementById('typewriterText');
     const bottomLogo = document.getElementById('bottomLogo');
-    const scrollInstruction = document.getElementById('scrollInstruction');
+    const waitlistContent = document.getElementById('waitlistContent');
+    const waitlistForm = document.getElementById('waitlistForm');
+    const waitlistMessage = document.getElementById('waitlistMessage');
 
     if (!textElement) return;
 
@@ -35,9 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 if (bottomLogo) bottomLogo.style.opacity = '1';
 
-                // 2. Show Scroll Text after Logo has faded in (e.g. +1.5s)
+                // 2. Show Waitlist Form after Logo has faded in (e.g. +1.5s)
                 setTimeout(() => {
-                    if (scrollInstruction) scrollInstruction.style.opacity = '1';
+                    if (waitlistContent) waitlistContent.style.opacity = '1';
                 }, 1500);
 
             }, 1000);
@@ -46,4 +48,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Wait 3 seconds initially
     setTimeout(typePart1, 3000);
+
+    // Waitlist form submission
+    if (waitlistForm) {
+        waitlistForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const emailInput = document.getElementById('waitlistEmail');
+            if (emailInput && emailInput.value) {
+                waitlistForm.style.display = 'none';
+                waitlistMessage.textContent = "You're on the list. We'll be in touch.";
+                waitlistMessage.style.display = 'block';
+            }
+        });
+    }
 });

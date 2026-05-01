@@ -29,11 +29,14 @@
                     <span id="typewriterText"></span><span class="cursor">|</span>
                 </p>
 
-                <div class="scroll-indicator">
+                <div class="waitlist-indicator">
                     <img src="assets/logo.png" alt="pooleside" class="bottom-logo" id="bottomLogo">
-                    <div class="scroll-instruction-content" id="scrollInstruction">
-                        <span>scroll to enter</span>
-                        <div class="scroll-line"></div>
+                    <div class="waitlist-content" id="waitlistContent">
+                        <form id="waitlistForm" class="waitlist-form">
+                            <input type="email" id="waitlistEmail" placeholder="enter your email" required class="waitlist-input">
+                            <button type="submit" class="waitlist-btn">join waitlist</button>
+                        </form>
+                        <p id="waitlistMessage" class="waitlist-message" style="display: none;"></p>
                     </div>
                 </div>
             </div>
