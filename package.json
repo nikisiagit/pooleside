@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Coastal vibes only music player",
   "scripts": {
-    "build": "node fetch-icloud.js && mkdir -p dist && cp index.html styles.css script.js photos.json dist/ && cp -r assets dist/"
+    "build": "node fetch-icloud.js && mkdir -p dist && cp index.html gallery.html styles.css script.js gallery.js photos.json dist/ && cp -r assets dist/"
   },
   "keywords": [],
   "author": "",
