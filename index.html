@@ -25,25 +25,22 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <p class="hero-description" id="typingContainer">
-                    <span id="typewriterText"></span><span class="cursor">|</span>
+                <p class="hero-description" id="heroText" style="opacity: 0; transition: opacity 3s ease-in-out;">
+                    Celebrating life in Poole and surrounding coastline through music and photography
                 </p>
 
                 <div class="waitlist-indicator">
                     <img src="assets/logo.png" alt="pooleside" class="bottom-logo" id="bottomLogo">
-                    <div class="waitlist-content" id="waitlistContent">
-                        <form id="waitlistForm" class="waitlist-form">
-                            <input type="email" id="waitlistEmail" placeholder="enter your email" required class="waitlist-input">
-                            <button type="submit" class="waitlist-btn">join waitlist</button>
-                        </form>
-                        <p id="waitlistMessage" class="waitlist-message" style="display: none;"></p>
-                    </div>
                 </div>
             </div>
         </div>
         
         <div class="container" style="margin-top: 60px;">
-            <div id="icloudPhotosContainer" class="photos-grid" style="opacity: 0; transition: opacity 1.5s ease-in;"></div>
+            <div id="icloudPhotosContainer" class="gallery-container" style="opacity: 0; transition: opacity 1.5s ease-in;">
+                <button class="gallery-btn prev-btn" id="prevBtn" aria-label="Previous image">❮</button>
+                <div class="gallery-track" id="galleryTrack"></div>
+                <button class="gallery-btn next-btn" id="nextBtn" aria-label="Next image">❯</button>
+            </div>
         </div>
     </section>
 
