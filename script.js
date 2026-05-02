@@ -4,26 +4,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let photos = [];
 
-    // Predefined layout positions for a scattered, editorial look
-    // Each entry: { left (%), top offset (px), width (px), speed (parallax multiplier) }
+    // Predefined layouts to create the scattered, overlapping column
     const layouts = [
-        { left: 55, width: 420, speed: 0.6 },
-        { left: 15, width: 380, speed: 0.45 },
-        { left: 45, width: 350, speed: 0.55 },
-        { left: 5,  width: 400, speed: 0.35 },
-        { left: 35, width: 440, speed: 0.5 },
-        { left: 60, width: 360, speed: 0.4 },
-        { left: 10, width: 420, speed: 0.55 },
-        { left: 50, width: 380, speed: 0.45 },
-        { left: 20, width: 400, speed: 0.6 },
-        { left: 55, width: 350, speed: 0.35 },
-        { left: 5,  width: 430, speed: 0.5 },
-        { left: 40, width: 370, speed: 0.45 },
-        { left: 15, width: 410, speed: 0.55 },
-        { left: 60, width: 390, speed: 0.4 },
-        { left: 30, width: 420, speed: 0.5 },
-        { left: 10, width: 380, speed: 0.6 },
-        { left: 50, width: 400, speed: 0.45 },
+        { left: '10%', zIndex: 1, speed: 0.05 },
+        { left: '50%', zIndex: 2, speed: 0.15 },
+        { left: '20%', zIndex: 3, speed: 0.08 },
+        { left: '60%', zIndex: 4, speed: 0.12 },
+        { left: '5%',  zIndex: 5, speed: 0.04 },
+        { left: '40%', zIndex: 6, speed: 0.10 },
+        { left: '70%', zIndex: 7, speed: 0.18 },
+        { left: '15%', zIndex: 8, speed: 0.06 },
     ];
 
     async function loadPhotos() {
@@ -40,49 +30,58 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderGallery() {
         container.innerHTML = '';
 
-        // Total vertical spacing between cards
-        const cardSpacing = 500;
-
         photos.forEach((photo, index) => {
             const layout = layouts[index % layouts.length];
 
-            // Glass card wrapper
+            // Main Window Card
             const card = document.createElement('div');
-            card.className = 'glass-card';
-            card.style.width = layout.width + 'px';
-            card.style.left = layout.left + '%';
-            card.style.top = (index * cardSpacing) + 'px';
+            card.className = 'finetooth-card';
+            // Alternating horizontal positions
+            card.style.left = layout.left;
+            card.style.zIndex = index + 1; // Natural stacking order
             card.dataset.speed = layout.speed;
 
-            // Image inside the card
-            const img = document.createElement('div');
-            img.className = 'glass-card-image';
-            img.style.backgroundImage = `url('${photo.url}')`;
+            // MacOS-style Header Bar
+            const header = document.createElement('div');
+            header.className = 'finetooth-card-header';
             
-            // Aspect ratio based on photo metadata
-            const aspect = (photo.height && photo.width) 
-                ? (photo.height / photo.width) 
-                : 0.65;
-            img.style.paddingBottom = (Math.min(aspect, 0.75) * 100) + '%';
+            const title = document.createElement('span');
+            title.className = 'finetooth-card-title';
+            // Default to a generic name or extract from filename if possible
+            const filename = photo.url.split('/').pop().split('.')[0] || `photo-${index + 1}`;
+            title.textContent = filename.replace(/-/g, ' ').toLowerCase();
 
-            card.appendChild(img);
+            header.appendChild(title);
+
+            // Image Container
+            const imgWrapper = document.createElement('div');
+            imgWrapper.className = 'finetooth-card-image-wrapper';
+            
+            const img = document.createElement('img');
+            img.className = 'finetooth-card-image';
+            img.src = photo.url;
+            img.alt = title.textContent;
+            // Lazy load for performance
+            img.loading = 'lazy';
+
+            imgWrapper.appendChild(img);
+
+            card.appendChild(header);
+            card.appendChild(imgWrapper);
             container.appendChild(card);
         });
 
-        // Set the container/body height for scrolling
-        const totalHeight = photos.length * cardSpacing + window.innerHeight;
-        container.style.height = totalHeight + 'px';
-        document.body.style.height = (totalHeight + 200) + 'px';
-
+        // Initial position update
         updatePositions();
     }
 
     function updatePositions() {
         const scrollY = window.scrollY;
-        const cards = container.querySelectorAll('.glass-card');
+        const cards = container.querySelectorAll('.finetooth-card');
 
         cards.forEach((card) => {
             const speed = parseFloat(card.dataset.speed);
+            // Translate Y for parallax. Negative moves it up faster as you scroll down
             const offset = scrollY * speed;
             card.style.transform = `translateY(${-offset}px)`;
         });

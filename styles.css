@@ -1059,62 +1059,87 @@ section {
     right: 10px;
 }
 
-/* Scattered Glass Card Gallery */
+/* Finetooth Window Gallery Section */
 .gallery-section {
     position: relative;
     width: 100%;
-    overflow: visible;
+    min-height: 100vh;
+    padding-top: calc(var(--header-height) + 40px);
+    padding-bottom: 200px;
     background-color: var(--color-bg);
-    padding-top: calc(var(--header-height) + 20px);
+    overflow-x: hidden;
 }
 
 .cover-flow-container {
     position: relative;
     width: 100%;
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 
-.glass-card {
-    position: absolute;
-    background: rgba(240, 240, 240, 0.55);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(200, 200, 200, 0.4);
-    border-radius: 16px;
-    padding: 16px;
-    box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.06),
-        0 2px 8px rgba(0, 0, 0, 0.04);
-    will-change: transform;
-    transition: box-shadow 0.3s ease;
-}
-
-.glass-card:hover {
-    box-shadow:
-        0 12px 40px rgba(0, 0, 0, 0.1),
-        0 4px 12px rgba(0, 0, 0, 0.06);
-}
-
-.glass-card-image {
-    width: 100%;
+.finetooth-card {
     position: relative;
-    background-size: cover;
-    background-position: center;
-    border-radius: 8px;
+    width: 85%;
+    max-width: 650px;
+    margin-bottom: -15%; /* Creates the vertical overlap */
+    
+    /* Glassmorphism Window Body */
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
     overflow: hidden;
+    will-change: transform;
 }
 
-/* Responsive */
+.finetooth-card:last-child {
+    margin-bottom: 40px; /* Reset overlap for the final item */
+}
+
+/* The MacOS-like Top Bar */
+.finetooth-card-header {
+    height: 24px;
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(248, 248, 248, 0.85));
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.finetooth-card-title {
+    font-size: 10px;
+    color: #999999;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+/* Flush Image Container */
+.finetooth-card-image-wrapper {
+    width: 100%;
+    display: flex;
+}
+
+.finetooth-card-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .cover-flow-container {
-        max-width: 100%;
         padding: 0 16px;
     }
-
-    .glass-card {
-        padding: 10px;
-        border-radius: 12px;
+    .finetooth-card {
+        width: 100%;
+        margin-bottom: -20%;
+        left: 0 !important; /* Override inline styles on mobile for a simple stack */
     }
 }
 
