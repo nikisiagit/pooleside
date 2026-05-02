@@ -13,3 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3500);
 
 });
+
+    // Burger Menu Logic
+    const burgerBtn = document.getElementById('burgerBtn');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (burgerBtn && navMenu) {
+        burgerBtn.addEventListener('click', () => {
+            burgerBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    }
