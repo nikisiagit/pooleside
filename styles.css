@@ -1,16 +1,16 @@
 /* Base Styles using Soulection Palette & Modern Reset */
 :root {
     /* Soulection Palette */
-    --color-bg: #0a192f;
-    --color-text: #ffffff;
-    --color-text-light: #cbd5e1;
-    --color-primary: #FFD700;
-    --color-secondary: #FFD700;
-    --color-accent: #FFD700;
-    --color-sand: #112240;
+    --color-bg: #ffffff;
+    --color-text: #000000;
+    --color-text-light: #555555;
+    --color-primary: #000000;
+    --color-secondary: #000000;
+    --color-accent: #000000;
+    --color-sand: #f0f0f0;
     --color-white: #ffffff;
-    --color-glass: rgba(10, 25, 47, 0.85);
-    --color-glass-border: rgba(255, 255, 255, 0.1);
+    --color-glass: rgba(255, 255, 255, 0.95);
+    --color-glass-border: rgba(0, 0, 0, 0.1);
 
     /* Layout */
     --container-width: 1200px;
@@ -1135,4 +1135,88 @@ section {
 
 .next-btn {
     right: 10px;
+}
+
+/* Cover Flow Gallery Section */
+.gallery-section {
+    padding-top: calc(var(--header-height) + 40px);
+    padding-bottom: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: var(--color-bg);
+}
+
+.cover-flow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 500px;
+    perspective: 1000px;
+}
+
+.cover-item {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    transition: transform 0.5s ease, opacity 0.5s ease, z-index 0s 0.25s;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    background-color: #eee;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Base Active */
+.cover-item.active {
+    transform: translateX(0) scale(1) rotateY(0deg);
+    z-index: 10;
+    opacity: 1;
+}
+
+/* Left items */
+.cover-item.prev-1 {
+    transform: translateX(-40%) scale(0.8) rotateY(35deg);
+    z-index: 5;
+    opacity: 0.8;
+}
+
+.cover-item.prev-2 {
+    transform: translateX(-70%) scale(0.6) rotateY(45deg);
+    z-index: 4;
+    opacity: 0.5;
+}
+
+/* Right items */
+.cover-item.next-1 {
+    transform: translateX(40%) scale(0.8) rotateY(-35deg);
+    z-index: 5;
+    opacity: 0.8;
+}
+
+.cover-item.next-2 {
+    transform: translateX(70%) scale(0.6) rotateY(-45deg);
+    z-index: 4;
+    opacity: 0.5;
+}
+
+/* Hide others */
+.cover-item:not(.active):not(.prev-1):not(.prev-2):not(.next-1):not(.next-2) {
+    transform: translateX(0) scale(0.4) rotateY(0deg);
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Responsive Cover Flow */
+@media (max-width: 768px) {
+    .cover-item {
+        width: 250px;
+        height: 250px;
+    }
 }
