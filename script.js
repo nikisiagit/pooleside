@@ -30,6 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderGallery() {
         container.innerHTML = '';
 
+        // Track the highest z-index to bring cards to front
+        let highestZIndex = photos.length;
+
         photos.forEach((photo, index) => {
             const layout = layouts[index % layouts.length];
 
@@ -40,6 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.left = layout.left;
             card.style.zIndex = index + 1; // Natural stacking order
             card.dataset.speed = layout.speed;
+
+            // Click to bring to front
+            card.addEventListener('click', () => {
+                highestZIndex++;
+                card.style.zIndex = highestZIndex;
+            });
 
             // MacOS-style Header Bar
             const header = document.createElement('div');
