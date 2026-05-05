@@ -1155,89 +1155,47 @@ section {
     right: 10px;
 }
 
-/* Finetooth Window Gallery Section */
+/* Standard Grid Gallery Section */
 .gallery-section {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    padding-top: calc(var(--header-height) + 40px);
-    padding-bottom: 200px;
+    padding: calc(var(--header-height) + 40px) 20px 100px;
     background-color: var(--color-bg);
-    overflow-x: hidden;
 }
 
-.cover-flow-container {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
+.photo-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: var(--container-width);
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-.finetooth-card {
+.gallery-item {
     position: relative;
-    width: 85%;
-    max-width: 650px;
-    margin-bottom: -15%; /* Creates the vertical overlap */
-    
-    /* Glassmorphism Window Body */
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 6px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
     overflow: hidden;
-    will-change: transform;
-    cursor: pointer;
+    aspect-ratio: 3/4;
+    background: var(--color-sand);
 }
 
-.finetooth-card:last-child {
-    margin-bottom: 40px; /* Reset overlap for the final item */
-}
-
-/* The MacOS-like Top Bar */
-.finetooth-card-header {
-    height: 24px;
+.gallery-item img {
     width: 100%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(248, 248, 248, 0.85));
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.finetooth-card-title {
-    font-size: 10px;
-    color: #999999;
-    letter-spacing: 0.5px;
-    font-weight: 500;
-}
-
-/* Flush Image Container */
-.finetooth-card-image-wrapper {
-    width: 100%;
-    display: flex;
-}
-
-.finetooth-card-image {
-    width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
     display: block;
 }
 
-/* Responsive adjustments */
+.gallery-item:hover img {
+    transform: scale(1.03);
+}
+
 @media (max-width: 768px) {
-    .cover-flow-container {
-        padding: 0 16px;
-    }
-    .finetooth-card {
-        width: 100%;
-        margin-bottom: -20%;
-        left: 0 !important; /* Override inline styles on mobile for a simple stack */
+    .photo-gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
     }
 }
 
