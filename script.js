@@ -39,8 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Main Window Card
             const card = document.createElement('div');
             card.className = 'finetooth-card';
-            // Alternating horizontal positions
-            card.style.left = layout.left;
+            // Alternating horizontal positions removed to center cards
+            // card.style.left = layout.left;
             card.style.zIndex = index + 1; // Natural stacking order
             card.dataset.speed = layout.speed;
 
@@ -99,6 +99,90 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         requestAnimationFrame(updatePositions);
     });
+
+    // --- Radio Player Logic ---
+    const radioPlayBtn = document.getElementById('navRadioPlayBtn');
+    const radioPlayIcon = document.getElementById('navRadioPlayIcon');
+    const radioNextBtn = document.getElementById('navRadioNextBtn');
+    const radioTrackName = document.getElementById('navRadioTrackName');
+    
+    let tracks = [];
+    let currentTrackIndex = 0;
+    let radioAudio = new Audio();
+    
+    async function loadTracks() {
+        try {
+            const response = await fetch('tracks.json');
+            if (!response.ok) throw new Error('Failed to load tracks.json');
+            tracks = await response.json();
+            if (tracks.length > 0) {
+                updateRadioUI();
+            } else {
+                radioTrackName.textContent = 'No tracks available';
+            }
+        } catch (error) {
+            console.error('Error loading tracks:', error);
+            radioTrackName.textContent = 'Offline';
+        }
+    }
+
+    function updateRadioUI() {
+        if (!tracks || tracks.length === 0) return;
+        const track = tracks[currentTrackIndex];
+        radioTrackName.textContent = `${track.artist} - ${track.title}`;
+        radioAudio.src = track.url;
+        
+        // Add marquee class if text is long
+        setTimeout(() => {
+            if (radioTrackName.offsetWidth > radioTrackName.parentElement.offsetWidth) {
+                radioTrackName.classList.add('scroll');
+            } else {
+                radioTrackName.classList.remove('scroll');
+            }
+        }, 100);
+    }
+
+    function togglePlay() {
+        if (!tracks || tracks.length === 0) return;
+        
+        if (radioAudio.paused) {
+            radioAudio.play().catch(e => console.error("Playback failed:", e));
+            radioPlayIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>'; // Pause icon
+        } else {
+            radioAudio.pause();
+            radioPlayIcon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"></polygon>'; // Play icon
+        }
+    }
+
+    function nextTrack() {
+        if (!tracks || tracks.length === 0) return;
+        
+        const wasPlaying = !radioAudio.paused;
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        updateRadioUI();
+        
+        if (wasPlaying) {
+            radioAudio.play().catch(e => console.error("Playback failed:", e));
+        }
+    }
+
+    if (radioPlayBtn) {
+        radioPlayBtn.addEventListener('click', togglePlay);
+    }
+    
+    if (radioNextBtn) {
+        radioNextBtn.addEventListener('click', nextTrack);
+    }
+
+    // Continuous streaming
+    radioAudio.addEventListener('ended', () => {
+        nextTrack();
+        radioAudio.play().catch(e => console.error("Playback failed:", e));
+        radioPlayIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>';
+    });
+
+    loadTracks();
+    // --- End Radio Player Logic ---
 
     loadPhotos();
 });
