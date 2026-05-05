@@ -103,11 +103,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Radio Player Logic ---
     const radioPlayBtn = document.getElementById('navRadioPlayBtn');
     const radioPlayIcon = document.getElementById('navRadioPlayIcon');
-    const radioNextBtn = document.getElementById('navRadioNextBtn');
     const radioTrackName = document.getElementById('navRadioTrackName');
     
     let tracks = [];
-    let currentTrackIndex = 0;
+    let totalPlaylistDuration = 0;
+    let currentTrackIndex = -1;
     let radioAudio = new Audio();
     
     async function loadTracks() {
@@ -115,8 +115,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('tracks.json');
             if (!response.ok) throw new Error('Failed to load tracks.json');
             tracks = await response.json();
-            if (tracks.length > 0) {
-                updateRadioUI();
+            
+            totalPlaylistDuration = tracks.reduce((acc, track) => acc + (track.duration || 0), 0);
+            
+            if (tracks.length > 0 && totalPlaylistDuration > 0) {
+                syncRadio(false);
+                
+                setInterval(() => {
+                    if (radioAudio.paused) {
+                        syncRadio(false);
+                    }
+                }, 10000);
             } else {
                 radioTrackName.textContent = 'No tracks available';
             }
@@ -126,59 +135,68 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function updateRadioUI() {
-        if (!tracks || tracks.length === 0) return;
-        const track = tracks[currentTrackIndex];
-        radioTrackName.textContent = `${track.artist} - ${track.title}`;
-        radioAudio.src = track.url;
+    function syncRadio(playAfterSync = false) {
+        if (!tracks || tracks.length === 0 || totalPlaylistDuration === 0) return;
         
-        // Add marquee class if text is long
-        setTimeout(() => {
-            if (radioTrackName.offsetWidth > radioTrackName.parentElement.offsetWidth) {
-                radioTrackName.classList.add('scroll');
-            } else {
-                radioTrackName.classList.remove('scroll');
+        const nowSec = Math.floor(Date.now() / 1000);
+        let playlistPos = nowSec % totalPlaylistDuration;
+        
+        let targetTrackIndex = 0;
+        let offsetInTrack = 0;
+        
+        let accumulatedTime = 0;
+        for (let i = 0; i < tracks.length; i++) {
+            if (playlistPos >= accumulatedTime && playlistPos < accumulatedTime + tracks[i].duration) {
+                targetTrackIndex = i;
+                offsetInTrack = playlistPos - accumulatedTime;
+                break;
             }
-        }, 100);
+            accumulatedTime += tracks[i].duration;
+        }
+        
+        const track = tracks[targetTrackIndex];
+        
+        if (currentTrackIndex !== targetTrackIndex) {
+            currentTrackIndex = targetTrackIndex;
+            radioTrackName.textContent = `${track.artist} - ${track.title}`;
+            radioAudio.src = track.url;
+            
+            setTimeout(() => {
+                if (radioTrackName.offsetWidth > radioTrackName.parentElement.offsetWidth) {
+                    radioTrackName.classList.add('scroll');
+                } else {
+                    radioTrackName.classList.remove('scroll');
+                }
+            }, 100);
+        }
+        
+        if (playAfterSync || radioAudio.paused) {
+             radioAudio.currentTime = offsetInTrack;
+        }
+        
+        if (playAfterSync) {
+            radioAudio.play().catch(e => console.error("Playback failed:", e));
+            radioPlayIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>';
+        }
     }
 
     function togglePlay() {
         if (!tracks || tracks.length === 0) return;
         
         if (radioAudio.paused) {
-            radioAudio.play().catch(e => console.error("Playback failed:", e));
-            radioPlayIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>'; // Pause icon
+            syncRadio(true);
         } else {
             radioAudio.pause();
             radioPlayIcon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"></polygon>'; // Play icon
         }
     }
 
-    function nextTrack() {
-        if (!tracks || tracks.length === 0) return;
-        
-        const wasPlaying = !radioAudio.paused;
-        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
-        updateRadioUI();
-        
-        if (wasPlaying) {
-            radioAudio.play().catch(e => console.error("Playback failed:", e));
-        }
-    }
-
     if (radioPlayBtn) {
         radioPlayBtn.addEventListener('click', togglePlay);
     }
-    
-    if (radioNextBtn) {
-        radioNextBtn.addEventListener('click', nextTrack);
-    }
 
-    // Continuous streaming
     radioAudio.addEventListener('ended', () => {
-        nextTrack();
-        radioAudio.play().catch(e => console.error("Playback failed:", e));
-        radioPlayIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>';
+        syncRadio(true);
     });
 
     loadTracks();
