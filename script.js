@@ -44,8 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function loadTracks() {
         try {
-            const response = await fetch('tracks.json');
-            if (!response.ok) throw new Error('Failed to load tracks.json');
+            let response = await fetch('/api/tracks');
+            if (!response.ok) {
+                // Fallback for simple local servers without Cloudflare Pages Functions
+                response = await fetch('tracks.json');
+            }
+            if (!response.ok) throw new Error('Failed to load tracks configuration');
+            
             tracks = await response.json();
             
             totalPlaylistDuration = tracks.reduce((acc, track) => acc + (track.duration || 0), 0);
