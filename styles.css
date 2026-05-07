@@ -1193,9 +1193,21 @@ section {
 }
 
 @media (max-width: 768px) {
+    .header-tagline {
+        display: none;
+    }
+    
+    .gallery-section {
+        padding: calc(var(--header-height) + 20px) 10px 60px;
+    }
+
     .photo-gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    
+    .nav-radio-player {
+        transform: scale(0.9);
+        transform-origin: right center;
     }
 }
-
