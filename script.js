@@ -6,8 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadPhotos() {
         try {
-            const response = await fetch('photos.json');
-            if (!response.ok) throw new Error('Failed to load photos.json');
+            let response = await fetch('/api/photos');
+            if (!response.ok) {
+                // Fallback for simple local servers without Cloudflare Pages Functions
+                response = await fetch('photos.json');
+            }
+            if (!response.ok) throw new Error('Failed to load photos configuration');
+            
             photos = await response.json();
             renderGallery();
         } catch (error) {
