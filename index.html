@@ -8,46 +8,52 @@
     <title>pooleside | Coastal Vibes Only</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-
-    <!-- Header Navigation -->
-    <header class="header">
-        <div class="container" style="position: relative; z-index: 100;">
-            <!-- Tagline -->
-            <div class="header-tagline">
-                Celebrating life in Poole and surrounding coastline<br>through music and photography
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <a href="index.html" class="logo">
+                    <img src="assets/logo.png" alt="pooleside" class="nav-logo">
+                </a>
+                <div class="tagline mono">
+                    Celebrating life in Poole<br>and surrounding coastline<br>through music and photography
+                </div>
             </div>
-
-            <a href="index.html" class="logo-text">
-                <img src="assets/logo.png" alt="pooleside" class="nav-logo">
-            </a>
             
-            <!-- Radio Player -->
-            <div class="nav-radio-player" id="navRadioPlayer">
-                <button class="radio-control-btn" id="navRadioPlayBtn" aria-label="Play Radio">
-                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="play-icon" id="navRadioPlayIcon"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                </button>
-                <div class="radio-info">
-                    <span class="radio-status">LIVE RADIO</span>
-                    <div class="marquee-container">
-                        <span class="marquee-text" id="navRadioTrackName">Loading stream...</span>
+            <div class="sidebar-bottom">
+                <div class="nav-radio-player" id="navRadioPlayer">
+                    <div class="radio-header mono">[ RADIO STREAM ]</div>
+                    <div class="radio-controls">
+                        <button class="radio-control-btn" id="navRadioPlayBtn" aria-label="Play Radio">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" class="play-icon" id="navRadioPlayIcon"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        </button>
+                        <div class="radio-info">
+                            <span class="radio-status mono">LIVE</span>
+                            <div class="marquee-container mono">
+                                <span class="marquee-text" id="navRadioTrackName">Loading stream...</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </aside>
 
-        </div>
-    </header>
-
-    <!-- Grid Gallery Section -->
-    <section class="gallery-section">
-        <div class="photo-gallery-grid" id="galleryContainer">
-            <!-- Images will be injected here via script.js -->
-        </div>
-    </section>
+        <main class="main-content">
+            <header class="main-header mono">
+                <div class="header-left">POOL // ARCHIVE</div>
+                <div class="header-right">[EST. 2024]</div>
+            </header>
+            <section class="gallery-section">
+                <div class="photo-gallery-grid" id="galleryContainer">
+                    <!-- Images will be injected here via script.js -->
+                </div>
+            </section>
+        </main>
+    </div>
 
     <script src="script.js"></script>
 </body>

@@ -23,16 +23,44 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderGallery() {
         container.innerHTML = '';
 
-        photos.forEach((photo) => {
+        photos.forEach((photo, index) => {
             const item = document.createElement('div');
             item.className = 'gallery-item';
+            
+            // Image Container
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'gallery-item-image';
+            
+            const archiveTag = document.createElement('div');
+            archiveTag.className = 'archived-tag mono';
+            archiveTag.textContent = '[ARCHIVED]';
             
             const img = document.createElement('img');
             img.src = photo.url;
             img.alt = photo.caption || 'Pooleside photo';
             img.loading = 'lazy';
 
-            item.appendChild(img);
+            imgContainer.appendChild(archiveTag);
+            imgContainer.appendChild(img);
+            
+            // Meta Container
+            const metaContainer = document.createElement('div');
+            metaContainer.className = 'gallery-item-meta mono';
+            
+            const title = document.createElement('div');
+            title.className = 'meta-title';
+            title.textContent = photo.caption || 'POOLESIDE ASSET';
+            
+            const id = document.createElement('div');
+            id.className = 'meta-id';
+            id.textContent = `ID-${String(index + 1).padStart(3, '0')}`;
+            
+            metaContainer.appendChild(title);
+            metaContainer.appendChild(id);
+            
+            item.appendChild(imgContainer);
+            item.appendChild(metaContainer);
+            
             container.appendChild(item);
         });
     }
