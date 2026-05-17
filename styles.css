@@ -300,16 +300,30 @@ button {
         flex-direction: column;
     }
     
+    .logo {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: var(--color-bg);
+        z-index: 110;
+        padding: 20px;
+        border-bottom: 1px solid var(--color-border);
+        display: flex;
+        align-items: center;
+    }
+    
+    .nav-logo {
+        width: 100px;
+    }
+    
     .sidebar {
         width: 100%;
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        background: var(--color-bg);
+        position: relative;
         height: auto;
         border-right: none;
         border-bottom: 1px solid var(--color-border);
-        padding: 20px;
+        padding: 80px 20px 20px 20px;
     }
     
     .main-content {
