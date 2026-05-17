@@ -31,16 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const imgContainer = document.createElement('div');
             imgContainer.className = 'gallery-item-image';
             
-            const archiveTag = document.createElement('div');
-            archiveTag.className = 'archived-tag mono';
-            archiveTag.textContent = '[ARCHIVED]';
-            
             const img = document.createElement('img');
             img.src = photo.url;
             img.alt = photo.caption || 'Pooleside photo';
             img.loading = 'lazy';
 
-            imgContainer.appendChild(archiveTag);
             imgContainer.appendChild(img);
             
             // Meta Container
